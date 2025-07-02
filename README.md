@@ -15,6 +15,23 @@
 
 ---
 
+## 📦 Version
+
+**Current Version**: v1.0.0
+
+**Release Date**: January 2025
+
+**Latest Features**:
+- Complete photo server with modern UI
+- JWT authentication and secure file handling
+- Timeline view with floating navigation
+- Album management and analytics
+- EXIF data extraction and search
+- Responsive design with glass morphism
+- Database backup included for easy setup
+
+---
+
 ## ✨ Features
 
 ### 🎯 Core Features
@@ -89,6 +106,12 @@
    php setup.php
    ```
 
+   **Alternative: Use the provided database backup**
+   ```bash
+   # Import the pre-configured database
+   mysql -u cloudphoto_user -p cloudphoto_db < setup/cloudphoto_db.sql
+   ```
+
 5. **Set proper permissions**
    ```bash
    chmod 755 media/
@@ -124,6 +147,7 @@ Cloudphoto/
 │   └── production.php        # Production settings
 ├── 📁 media/                 # Uploaded media files
 ├── 📁 setup/                 # Setup scripts
+│   └── cloudphoto_db.sql     # Database backup with sample data
 ├── dashboard.php             # Main dashboard
 ├── timeline.php              # Timeline view
 ├── albums.php                # Albums management
