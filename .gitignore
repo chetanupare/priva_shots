@@ -60,9 +60,12 @@ debug_*.php
 *_test.php
 *_debug.php
 
-# Database dumps
-*.sql
-*.dump
+# Database dumps (keeping setup SQL files)
+# *.sql
+# *.dump
+
+# Exclude root directory SQL files (keep only setup/ directory)
+cloudphoto_db*.sql
 
 # SSL certificates
 *.pem
