@@ -1,0 +1,77 @@
+# Configuration files with sensitive data
+config/database.php
+config/production.php
+
+# Logs
+logs/
+*.log
+
+# Media files (user uploads)
+media/*/
+!media/.gitkeep
+
+# Temporary files
+*.tmp
+*.temp
+*.swp
+*.swo
+*~
+
+# IDE files
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+
+# OS generated files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Backup files
+*.bak
+*.backup
+*.old
+
+# Cache files
+cache/
+tmp/
+
+# Environment files
+.env
+.env.local
+.env.production
+
+# Composer (if used later)
+vendor/
+composer.lock
+
+# Node modules (if used later)
+node_modules/
+package-lock.json
+
+# Test files
+test_*.php
+debug_*.php
+*_test.php
+*_debug.php
+
+# Database dumps
+*.sql
+*.dump
+
+# SSL certificates
+*.pem
+*.key
+*.crt
+*.csr
+
+# Session files
+sessions/
+
+# Upload temp files
+upload_tmp/ 

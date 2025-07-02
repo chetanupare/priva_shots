@@ -1,0 +1,114 @@
+/* Dashboard Upload Section */
+.upload-section {
+    background: white;
+    border-radius: 1rem;
+    padding: 2rem;
+    margin-bottom: 2.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border: 1px solid #e2e8f0;
+}
+
+.upload-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #1a202c;
+    margin-bottom: 1rem;
+}
+
+.upload-zone {
+    border: 2px dashed #cbd5e0;
+    border-radius: 1rem;
+    padding: 2rem;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: #f7fafc;
+}
+
+.upload-zone:hover {
+    border-color: #667eea;
+    background: #edf2f7;
+}
+
+.upload-zone.dragover {
+    border-color: #667eea;
+    background: #eef2ff;
+    transform: scale(1.02);
+}
+
+.upload-icon {
+    font-size: 3rem;
+    color: #a0aec0;
+    margin-bottom: 1rem;
+}
+
+.upload-text {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: #4a5568;
+    margin-bottom: 0.5rem;
+}
+
+.upload-subtext {
+    color: #718096;
+    font-size: 0.875rem;
+    line-height: 1.5;
+}
+
+.upload-subtext a {
+    color: #667eea;
+    text-decoration: none;
+}
+
+.upload-subtext a:hover {
+    text-decoration: underline;
+}
+
+.upload-progress {
+    margin-top: 1rem;
+    display: none;
+}
+
+.upload-progress.show {
+    display: block;
+}
+
+.progress-bar {
+    width: 100%;
+    height: 8px;
+    background: #e2e8f0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-bottom: 0.5rem;
+}
+
+.progress-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #667eea, #764ba2);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.progress-text {
+    font-size: 0.875rem;
+    color: #718096;
+    text-align: center;
+}
+
+@media (max-width: 768px) {
+    .upload-section {
+        padding: 1.5rem;
+    }
+    
+    .upload-zone {
+        padding: 1.5rem;
+    }
+    
+    .upload-icon {
+        font-size: 2.5rem;
+    }
+    
+    .upload-text {
+        font-size: 1rem;
+    }
+} 
