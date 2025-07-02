@@ -3,7 +3,16 @@ define('DB_HOST', 'localhost');
 define('DB_NAME', 'cloudphoto_db');
 define('DB_USER', 'root');
 define('DB_PASS', '');
-define('JWT_SECRET', '54c6e923d8b29e7162a6f483d746f009c4a835a147ea0bb6dfe6b8be621444c3');
+
+// JWT Configuration - Use environment variable for security
+$jwtSecret = $_ENV['JWT_SECRET'] ?? getenv('JWT_SECRET');
+if (!$jwtSecret) {
+    // Generate a secure random secret if none is provided
+    // In production, this should ALWAYS be set via environment variable
+    $jwtSecret = bin2hex(random_bytes(32));
+    error_log('WARNING: JWT_SECRET not found in environment. Using generated secret. Set JWT_SECRET environment variable for production.');
+}
+define('JWT_SECRET', $jwtSecret);
 define('JWT_ALGORITHM', 'HS256');
 define('JWT_EXPIRY', 86400);
 define('UPLOAD_MAX_SIZE', 100 * 1024 * 1024);

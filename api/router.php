@@ -588,7 +588,7 @@ try {
             ]);
             break;
 
-        case 'photos-by-date':
+        case 'photos-by-specific-date':
             if ($method !== 'POST') {
                 http_response_code(405);
                 echo json_encode(['success' => false, 'message' => 'Method not allowed']);
