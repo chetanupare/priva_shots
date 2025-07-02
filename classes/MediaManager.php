@@ -369,10 +369,27 @@ class MediaManager {
             return ['valid' => false, 'message' => 'File too large'];
         }
         
-        // Check MIME type
+        // Get actual MIME type from file content (security fix for MIME type spoofing)
+        $actualMimeType = null;
+        if (function_exists('finfo_file')) {
+            $finfo = finfo_open(FILEINFO_MIME_TYPE);
+            $actualMimeType = finfo_file($finfo, $file['tmp_name']);
+            finfo_close($finfo);
+        } elseif (function_exists('mime_content_type')) {
+            $actualMimeType = mime_content_type($file['tmp_name']);
+        }
+        
+        // If we can't detect the actual MIME type, fall back to client-provided type
+        // but log a warning since this is less secure
+        if (!$actualMimeType) {
+            $actualMimeType = $file['type'];
+            error_log('WARNING: Could not detect actual file MIME type, falling back to client-provided type. Consider installing fileinfo extension.');
+        }
+        
+        // Check actual MIME type against allowed types
         $allowedTypes = array_merge(ALLOWED_IMAGE_TYPES, ALLOWED_VIDEO_TYPES);
-        if (!in_array($file['type'], $allowedTypes)) {
-            return ['valid' => false, 'message' => 'File type not allowed: ' . $file['type']];
+        if (!in_array($actualMimeType, $allowedTypes)) {
+            return ['valid' => false, 'message' => 'File type not allowed: ' . $actualMimeType];
         }
         
         // Additional validation by file extension
@@ -395,7 +412,44 @@ class MediaManager {
             return ['valid' => false, 'message' => 'File extension not allowed: .' . $fileExtension];
         }
         
+        // Additional security check: Ensure MIME type and extension are compatible
+        if (!$this->isMimeTypeExtensionCompatible($actualMimeType, $fileExtension)) {
+            return ['valid' => false, 'message' => 'File content does not match extension'];
+        }
+        
         return ['valid' => true];
+    }
+    
+    /**
+     * Check if MIME type and file extension are compatible
+     */
+    private function isMimeTypeExtensionCompatible($mimeType, $extension) {
+        $compatibilityMap = [
+            // Common image formats
+            'image/jpeg' => ['jpg', 'jpeg'],
+            'image/png' => ['png'],
+            'image/gif' => ['gif'],
+            'image/webp' => ['webp'],
+            'image/bmp' => ['bmp'],
+            'image/tiff' => ['tiff', 'tif'],
+            'image/svg+xml' => ['svg'],
+            
+            // Common video formats
+            'video/mp4' => ['mp4', 'm4v'],
+            'video/quicktime' => ['mov'],
+            'video/x-msvideo' => ['avi'],
+            'video/webm' => ['webm'],
+            'video/ogg' => ['ogg'],
+        ];
+        
+        // Check if we have a mapping for this MIME type
+        if (isset($compatibilityMap[$mimeType])) {
+            return in_array($extension, $compatibilityMap[$mimeType]);
+        }
+        
+        // For less common formats, allow if both are in allowed lists
+        // This is a more permissive approach for specialty camera RAW formats, etc.
+        return true;
     }
     
     /**
